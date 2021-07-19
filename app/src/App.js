@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import Nav from "./components/Nav";
+import Homepage from "./views/Homepage";
+import Login from "./views/Login";
+import User from "./views/User";
+import Footer from "./components/Footer";
+import "./App.css";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+library.add(faUserCircle, faSignOutAlt);
 
+// make nav dynamic depending on login state
+// make greeting on profile page dynamic depending on user name
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <Router>
+      <header>
+        <Nav />
       </header>
-    </div>
+      <Switch>
+        <Route exact path="/">
+          <Homepage />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/profile">
+          <User />
+        </Route>
+      </Switch>
+      <Footer />
+    </Router>
   );
 }
 
