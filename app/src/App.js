@@ -7,6 +7,7 @@ import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 library.add(faUserCircle, faSignOutAlt);
 
 // make nav dynamic depending on login state
