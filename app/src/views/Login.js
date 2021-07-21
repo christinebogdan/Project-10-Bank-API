@@ -30,18 +30,18 @@ function Login(props) {
         <h1>Sign In</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
-            <label for="username">Username</label>
+            <label htmlFor="username">Username</label>
             <input type="text" id="username" onChange={handleChange} />
           </div>
           <div className="input-wrapper">
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" id="password" onChange={handleChange} />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" onChange={handleChange} />
-            <label for="remember-me">Remember me</label>
+            <label htmlFor="remember-me">Remember me</label>
           </div>
-          <input type="submit" value="Sign In" />
+          <input type="submit" value="Sign In" className="sign-in-button" />
           {/* <submit className="sign-in-button">Sign In</submit> */}
           {/* <a href="./user.html" class="sign-in-button">
             Sign In
