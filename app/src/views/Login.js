@@ -1,16 +1,49 @@
 import "../styles/login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import { username, password, rememberme } from "../store/form/actions";
+import {
+  username,
+  password,
+  rememberme,
+  logout,
+  login,
+} from "../store/form/actions";
+import fetchRequest from "../helper/fetchRequest";
 
 function Login(props) {
-  const login = useSelector((state) => state.form);
-  console.log(login);
+  const form = useSelector((state) => state.form);
+  const loginStatus = useSelector((state) => state.loginStatus);
+  console.log(loginStatus);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submitted");
+    const data = {
+      email: form.username,
+      password: form.password,
+    };
+
+    // ??? why is line "done" + loginStatus printed before all other lines in the then-chain?
+    fetchRequest("http://localhost:3001/api/v1/user/login", data, "POST")
+      .then((response) => {
+        return response;
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(login(response.body.token));
+          const headers = {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${response.body.token}`,
+          };
+          fetchRequest(
+            "http://localhost:3001/api/v1/user/profile",
+            undefined,
+            "POST",
+            headers
+          ).then((response) => console.log(response));
+        }
+      })
+      .then(console.log("done"));
   };
 
   const handleChange = (e) => {
@@ -42,10 +75,6 @@ function Login(props) {
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <input type="submit" value="Sign In" className="sign-in-button" />
-          {/* <submit className="sign-in-button">Sign In</submit> */}
-          {/* <a href="./user.html" class="sign-in-button">
-            Sign In
-          </a> */}
         </form>
       </section>
     </main>
@@ -53,3 +82,9 @@ function Login(props) {
 }
 
 export default Login;
+
+/**
+ * Client stores that token in local storage or session storage.
+From next time, the client for making any request supplies the JWT token in request headers like this. Authorization: Bearer <jwt_token>
+Server upon receiving the JWT validates it and sends the successful response else error.
+ */
