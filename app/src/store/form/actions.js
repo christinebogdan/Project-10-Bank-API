@@ -2,8 +2,8 @@ import { combineReducers } from "redux";
 const FORM_USERNAME = "form/username";
 const FORM_PASSWORD = "form/password";
 const FORM_REMEMBERME = "form/rememberme";
-const LOGIN_LOGIN = "login/login";
-const LOGIN_LOGOUT = "login/logout";
+const LOGIN_SUCCESS = "login/login";
+const LOGIN_ERROR = "login/logout";
 
 export function username(value) {
   return {
@@ -32,7 +32,7 @@ const defaultForm = {
   rememberme: false,
 };
 
-function form(state = defaultForm, action) {
+function formInput(state = defaultForm, action) {
   switch (action.type) {
     case FORM_USERNAME:
       return { ...state, username: action.value };
@@ -47,29 +47,29 @@ function form(state = defaultForm, action) {
 
 export function login(value) {
   return {
-    type: LOGIN_LOGIN,
+    type: LOGIN_SUCCESS,
     value,
   };
 }
 export function logout() {
   return {
-    type: LOGIN_LOGOUT,
+    type: LOGIN_ERROR,
   };
 }
 
-const defaultLoggedIn = { loggedIn: false, token: "" };
+const defaultLoggedIn = { isAuthenticated: false, token: "" };
 
-function loginStatus(state = defaultLoggedIn, action) {
+function authentication(state = defaultLoggedIn, action) {
   switch (action.type) {
-    case LOGIN_LOGIN:
-      return { ...state, loggedIn: true, token: action.value };
-    case LOGIN_LOGOUT:
-      return { ...state, loggedIn: false, token: "" };
+    case LOGIN_SUCCESS:
+      return { ...state, isAuthenticated: true, token: action.value };
+    case LOGIN_ERROR:
+      return { ...state, isAuthenticated: false, token: "" };
     default:
       return state;
   }
 }
 
-const bankApp = combineReducers({ form, loginStatus });
+const rootReducer = combineReducers({ formInput, authentication });
 
-export default bankApp;
+export default rootReducer;

@@ -9,11 +9,10 @@ import {
   login,
 } from "../store/form/actions";
 import fetchRequest from "../helper/fetchRequest";
+import { auth } from "../helper/fetchRequest";
 
 function Login(props) {
-  const form = useSelector((state) => state.form);
-  const loginStatus = useSelector((state) => state.loginStatus);
-  console.log(loginStatus);
+  const form = useSelector((state) => state.formInput);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -22,28 +21,7 @@ function Login(props) {
       email: form.username,
       password: form.password,
     };
-
-    // ??? why is line "done" + loginStatus printed before all other lines in the then-chain?
-    fetchRequest("http://localhost:3001/api/v1/user/login", data, "POST")
-      .then((response) => {
-        return response;
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(login(response.body.token));
-          const headers = {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${response.body.token}`,
-          };
-          fetchRequest(
-            "http://localhost:3001/api/v1/user/profile",
-            undefined,
-            "POST",
-            headers
-          ).then((response) => console.log(response));
-        }
-      })
-      .then(console.log("done"));
+    dispatch(auth(data));
   };
 
   const handleChange = (e) => {
