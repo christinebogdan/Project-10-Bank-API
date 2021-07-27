@@ -41,6 +41,16 @@ function authentication(state = defaultLoggedIn, action) {
       };
     case actions.LOGIN_ERROR:
       return { ...state, isAuthenticated: false, token: "" };
+    case actions.USER_LOGOUT:
+      return { ...state, isAuthenticated: false, token: "", userInfo: {} };
+    case actions.USER_CHANGENAME:
+      return {
+        ...state,
+        userInfo: {
+          firstName: action.value.firstName,
+          lastName: action.value.lastName,
+        },
+      };
     default:
       return state;
   }
