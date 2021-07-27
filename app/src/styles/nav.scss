@@ -11,6 +11,11 @@
   margin-left: 5px;
 }
 
+.main-nav div {
+  display: flex;
+  align-items: center;
+}
+
 .main-nav a.router-link-exact-active {
   color: #42b983;
 }
