@@ -8,10 +8,6 @@ export default async function fetchRequest(
     const response = await fetch(url, {
       method: method,
       headers: headers,
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   "Authorization": `Bearer ${token}`
-      // },
       body: JSON.stringify(data),
     });
     console.log(response);
