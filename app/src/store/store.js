@@ -1,8 +1,6 @@
 import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
-import rootReducer from "../store/form/actions";
-
-// const thunk = thunkMiddleware.withExtraArgument({});
+import { rootReducer } from "./reducers";
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 

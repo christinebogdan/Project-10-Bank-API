@@ -1,36 +1,33 @@
 import "../styles/login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  username,
-  password,
-  rememberme,
-  logout,
-  login,
-} from "../store/form/actions";
-import fetchRequest from "../helper/fetchRequest";
+import { actionCreators } from "../store/actions";
+import { test } from "../helper/apiCalls";
+// import fetchRequest from "../helper/fetchRequest";
 import { auth } from "../helper/fetchRequest";
 
 function Login(props) {
-  const form = useSelector((state) => state.formInput);
+  const formInput = useSelector((state) => state.formInput);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      email: form.username,
-      password: form.password,
+      username: formInput.username,
+      password: formInput.password,
     };
-    dispatch(auth(data));
+    console.log(data);
+    test(data);
+    // dispatch(auth(data));
   };
 
   const handleChange = (e) => {
     if (e.target.id === "username") {
-      dispatch(username(e.target.value));
+      dispatch(actionCreators.username(e.target.value));
     } else if (e.target.id === "password") {
-      dispatch(password(e.target.value));
+      dispatch(actionCreators.password(e.target.value));
     } else if (e.target.id === "remember-me") {
-      dispatch(rememberme(e.target.checked ? true : false));
+      dispatch(actionCreators.rememberme(e.target.checked ? true : false));
     }
   };
 

@@ -1,4 +1,4 @@
-import { login } from "../store/form/actions";
+import { actionCreators } from "../store/actions";
 
 export default async function fetchRequest(
   url = "",
@@ -10,10 +10,6 @@ export default async function fetchRequest(
     const response = await fetch(url, {
       method: method,
       headers: headers,
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   "Authorization": `Bearer ${token}`
-      // },
       body: JSON.stringify(data),
     });
     console.log(response);
@@ -32,7 +28,10 @@ export function auth(data) {
         body: JSON.stringify(data),
       });
       const parsedResponse = await response.json();
-      dispatch(login(parsedResponse.body.token));
+      // why can i not clear form?
+      console.log("clear form");
+      dispatch(actionCreators.clearForm);
+      dispatch(actionCreators.login(parsedResponse.body.token));
       console.log(getState());
       dispatch(getProfile(parsedResponse.body.token));
     } catch (error) {
@@ -56,6 +55,8 @@ function getProfile(token) {
       );
       const parsedResponse = await response.json();
       console.log(parsedResponse);
+      // dispatch(userInfo(parsedResponse));
+      console.log(getState());
     } catch (error) {
       console.log(error);
     }
