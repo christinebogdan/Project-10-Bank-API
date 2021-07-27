@@ -55,7 +55,6 @@ function auth(data) {
     dispatch(request(data.username));
     console.log(getState());
     requests.login(data).then((response) => {
-      // dispatch(login(response.body.token));
       console.log(getState());
       const token = response.body.token;
       requests.getProfile(token).then((response) => {
