@@ -54,15 +54,18 @@ function auth(data) {
   return (dispatch, getState) => {
     dispatch(request(data.username));
     console.log(getState());
-    requests.login(data).then((response) => {
-      console.log(getState());
-      const token = response.body.token;
-      requests.getProfile(token).then((response) => {
-        const value = { token, userInfo: response.body };
-        dispatch(login(value));
+    // why does error come up when I want to pass getState to login function
+    requests.login(data).then(
+      (response) => {
         console.log(getState());
-      });
-    });
+        console.log(response);
+        dispatch(login(response));
+        console.log(getState());
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
 }
 
