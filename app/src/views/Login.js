@@ -1,15 +1,7 @@
 import "../styles/login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  username,
-  password,
-  rememberme,
-  logout,
-  login,
-} from "../store/form/actions";
-import fetchRequest from "../helper/fetchRequest";
-import { auth } from "../helper/fetchRequest";
+import { actionCreators } from "../store/actions";
 
 function Login(props) {
   const form = useSelector((state) => state.formInput);
@@ -21,16 +13,16 @@ function Login(props) {
       email: form.username,
       password: form.password,
     };
-    dispatch(auth(data));
+    dispatch(actionCreators.auth(data));
   };
 
   const handleChange = (e) => {
     if (e.target.id === "username") {
-      dispatch(username(e.target.value));
+      dispatch(actionCreators.username(e.target.value));
     } else if (e.target.id === "password") {
-      dispatch(password(e.target.value));
+      dispatch(actionCreators.password(e.target.value));
     } else if (e.target.id === "remember-me") {
-      dispatch(rememberme(e.target.checked ? true : false));
+      dispatch(actionCreators.rememberme(e.target.checked ? true : false));
     }
   };
 
