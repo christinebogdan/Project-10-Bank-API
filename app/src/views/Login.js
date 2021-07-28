@@ -7,6 +7,10 @@ function Login(props) {
   const form = useSelector((state) => state.formInput);
   const dispatch = useDispatch();
 
+  // dispatch(actionCreators.loggingOut);
+  // why does this render every time I type in the form input field?
+  // console.log("hello");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -14,6 +18,7 @@ function Login(props) {
       password: form.password,
     };
     dispatch(actionCreators.auth(data));
+    // why did the dispatch of submit action not work here?
   };
 
   const handleChange = (e) => {
