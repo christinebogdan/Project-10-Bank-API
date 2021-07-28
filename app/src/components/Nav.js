@@ -11,26 +11,45 @@ function Nav(props) {
   const firstName = state.userInfo.firstName;
 
   // why does this not work in LINK
-  const loggingOut = (e) => {
-    console.log("Hello");
-    dispatch(actionCreators.loggingOut);
-    console.log(state);
-  };
+  // const loggingOut = (e) => {
+  //   console.log("Hello");
+  //   dispatch(actionCreators.loggingOut);
+  //   console.log(state);
+  // };
 
+  // why does it not work to link sign out to /login and have login dispatch loggingout ?
   const isAuthenticated = (firstName) => {
     return (
       <>
         <div>
           <FontAwesomeIcon icon="user-circle" />
-          <Link to="/" className="main-nav-item" onClick={loggingOut}>
+          <Link to="/" className="main-nav-item">
             {state.userInfo.firstName}
           </Link>
         </div>
         <div>
           <FontAwesomeIcon icon="sign-out-alt" />
-          <Link to="/" className="main-nav-item">
+          {/* <Link to="/login" className="main-nav-item">
             Sign Out
-          </Link>
+          </Link> */}
+          {/* <Link
+            to={(location) => {
+              dispatch(actionCreators.loggingOut);
+              return { ...location, pathname: "/" };
+            }}
+            className="main-nav-item"
+          >
+            Sign Out
+          </Link> */}
+
+          {/* shows errors in console on click */}
+          <a
+            href="./"
+            onClick={dispatch(actionCreators.loggingOut)}
+            className="main-nav-item"
+          >
+            Sign Out
+          </a>
         </div>
       </>
     );
@@ -49,6 +68,7 @@ function Nav(props) {
 
   return (
     <nav className="main-nav">
+      {/* why does click on logo log user out */}
       <a className="main-nav-logo" href="./">
         <img
           className="main-nav-logo-image"
