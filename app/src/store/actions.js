@@ -64,26 +64,23 @@ function request(value) {
   };
 }
 
+// wie kann ich hier per destructuring userInfo: body die UserInfo rausholen?
+// dispatch(login({ token, userInfo: { profile: { body } } }));
+
+// _getState to show that it is not used?
+
 function auth(data) {
-  // how can I access history here?
-  return (dispatch, getState) => {
-    dispatch(request(data.username));
-    console.log(getState());
-    // why does error come up when I want to pass getState to login function
-    requests.login(data).then(
-      (response) => {
-        console.log(getState());
-        console.log(response);
-        dispatch(login(response));
-        console.log(getState());
-        customHistory.push("/profile");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    dispatch(submit());
-    console.log(getState());
+  return async (dispatch, _getState) => {
+    try {
+      dispatch(request(data.username));
+      const token = await requests.getToken(data);
+      const { body } = await requests.getProfile(token);
+      dispatch(login({ token, userInfo: body }));
+      customHistory.push("/profile");
+      dispatch(submit());
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 
@@ -95,16 +92,18 @@ function login(value) {
 }
 
 function logout() {
+  sessionStorage.removeItem("user");
   return {
     type: actions.USER_LOGOUT,
   };
 }
 
+// why does this not log the state in the console after dispatching logout?
 function loggingOut() {
   return (dispatch, getState) => {
-    console.log(sessionStorage);
-    sessionStorage.removeItem("user");
+    sessionStorage.clear();
     dispatch(logout);
+    console.log(getState());
   };
 }
 
