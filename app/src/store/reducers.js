@@ -19,10 +19,7 @@ function formInput(state = defaultForm, action) {
       return { ...state, rememberme: action.value };
     case actions.FORM_SUBMIT:
       return { ...state, username: "", password: "" };
-    case actions.USER_FIRSTNAME:
-      return { ...state, firstName: action.value };
-    case actions.USER_LASTNAME:
-      return { ...state, lastName: action.value };
+
     default:
       return state;
   }
@@ -34,6 +31,7 @@ const defaultLoggedIn = {
   token: "",
   userInfo: {},
   editName: false,
+  editNameInput: { firstName: "", lastName: "" },
 };
 
 function authentication(state = defaultLoggedIn, action) {
@@ -53,7 +51,22 @@ function authentication(state = defaultLoggedIn, action) {
     case actions.USER_LOGOUT:
       return { ...state, isAuthenticated: false, token: "", userInfo: {} };
     case actions.USER_EDITNAME:
-      return { ...state, editName: true };
+      return { ...state, editName: !state.editName };
+    case actions.USER_FIRSTNAME:
+      return {
+        ...state,
+        editNameInput: { ...state.editNameInput, firstName: action.value },
+      };
+    case actions.USER_LASTNAME:
+      return {
+        ...state,
+        editNameInput: { ...state.editNameInput, lastName: action.value },
+      };
+    case actions.USER_EDITNAME_SUCCESS:
+      return {
+        ...state,
+        userInfo: action.value,
+      };
     default:
       return state;
   }

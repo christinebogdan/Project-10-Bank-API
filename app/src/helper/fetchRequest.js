@@ -1,6 +1,7 @@
 export const requests = {
   getToken,
   getProfile,
+  updateName,
 };
 
 // why can I not do fetch().json() ?
@@ -21,7 +22,6 @@ async function getToken(data) {
     sessionStorage.setItem("user", token);
     return token;
   } catch (e) {
-    console.log(e);
     return e;
   }
 }
@@ -42,5 +42,28 @@ async function getProfile(token) {
     return await response.json();
   } catch (e) {
     return e;
+  }
+}
+
+async function updateName(data) {
+  try {
+    const token = sessionStorage.getItem("user");
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    };
+    const response = await fetch(
+      "http://localhost:3001/api/v1/user/profile",
+      requestOptions
+    );
+    const { body } = await response.json();
+    console.log();
+    return body;
+  } catch (e) {
+    console.log(e);
   }
 }

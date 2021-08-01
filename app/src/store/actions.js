@@ -1,6 +1,7 @@
 import { requests } from "../helper/fetchRequest";
 import { customHistory } from "../helper/history";
 
+// do I need to use ERROR for LOGIN and USER EDITNAME?
 export const actions = {
   FORM_USERNAME: "form/username",
   FORM_PASSWORD: "form/password",
@@ -13,6 +14,7 @@ export const actions = {
   USER_EDITNAME: "user/editname",
   USER_FIRSTNAME: "user/firstname",
   USER_LASTNAME: "user/lastname",
+  USER_EDITNAME_SUCCESS: "user/success",
 };
 
 export const actionCreators = {
@@ -26,8 +28,9 @@ export const actionCreators = {
   // logout,
   loggingOut,
   editName,
-  firstName,
-  lastName,
+  editFirstName,
+  editLastName,
+  updateName,
 };
 
 function username(value) {
@@ -92,6 +95,7 @@ function login(value) {
 }
 
 function logout() {
+  // or sessionStorage.clear()
   sessionStorage.removeItem("user");
   return {
     type: actions.USER_LOGOUT,
@@ -113,16 +117,37 @@ function editName() {
   };
 }
 
-function firstName(value) {
+function editFirstName(value) {
   return {
     type: actions.USER_FIRSTNAME,
     value,
   };
 }
 
-function lastName(value) {
+function editLastName(value) {
   return {
     type: actions.USER_LASTNAME,
+    value,
+  };
+}
+
+function updateName(data) {
+  return async (dispatch, useState) => {
+    try {
+      const userInfo = await requests.updateName(data);
+      dispatch(updateNameSuccess(userInfo));
+      dispatch(editFirstName(""));
+      dispatch(editLastName(""));
+      dispatch(editName());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+function updateNameSuccess(value) {
+  return {
+    type: actions.USER_EDITNAME_SUCCESS,
     value,
   };
 }
