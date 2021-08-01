@@ -8,7 +8,7 @@ function User(props) {
   const dispatch = useDispatch();
 
   const editName = () => {
-    dispatch(actionCreators.editName);
+    dispatch(actionCreators.editName());
     console.log("changeName");
     console.log(state);
   };
@@ -40,17 +40,19 @@ function User(props) {
     return (
       <>
         <h1>Welcome back</h1>
-        <form>
-          <div className="input-wrapper">
+        <form className="form">
+          <div className="inputWrapper">
             <input
+              className="editName"
               type="text"
               id="firstName"
               placeholder={state.userInfo.firstName}
               onChange={handleChange}
             />
           </div>
-          <div className="input-wrapper">
+          <div className="inputWrapper">
             <input
+              className="editName"
               type="test"
               id="lastName"
               placeholder={state.userInfo.lastName}

@@ -32,3 +32,18 @@
   color: #fff;
   margin-bottom: 2rem;
 }
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.inputWrapper + .inputWrapper {
+  margin-left: 15px;
+}
+
+.editName {
+  border: 1px solid #c7d1da;
+  border-radius: 2px;
+  padding: 7px 10px;
+}
