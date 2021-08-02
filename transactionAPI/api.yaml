@@ -1,0 +1,136 @@
+#does POST need request body? https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
+openapi: "3.0.0"
+info:
+  description: "Contains all available API endpoints to:  
+  View transactions and additional transaction details
+  Add, change, or remove additional information."
+  version: "1.0.0"
+  title: "Bank Argent Transactions API documentation"
+servers:
+- url: "localhost:3001/api/v1"
+tags:
+- name: "transactions"
+paths:
+  /transactions/{accountId}:
+    post:
+      summary: "Request all transactions per account"
+      description: "API for fetching an account's transactions."
+      # what is an operationId good for?
+      # why no application/json in this part?
+      tags:
+      - "transactions"
+      security:
+      - BearerAuth: []
+      parameters:
+        - name: "accountId"
+          in: "path"
+          description: "Account ID"
+          required: true 
+          schema: 
+            type: integer
+        - name: "Authorization"
+          in: "header"
+          description: "Attach Bearer JWT Token"
+          required: true
+          schema: 
+            type: string
+      responses:
+        200: 
+          description: "Successfully retrieved account transactions"
+          content: 
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message: 
+                    type: string
+                  body:  
+                    type: array
+                    items: 
+                  # why is this one object per properties and not one object with all properties?
+                      type: object
+                      properties: 
+                        accountId:
+                          type: string
+                        transactionId:
+                          type: integer
+                        date:
+                          type: string
+                        description:
+                          type: string
+                        amount:
+                          type: integer
+                        balance:
+                          type: integer
+              example:
+                status: 200
+                message: "Successfully retrieved account transactions"
+                body: [{accountId: "x8349", transactionId: 83722253, date: "yyyy/mm/dd", description: "Golden Sun Bakery", amount: 5, balance: 2082.79}
+                ]
+  # or should it be /transactions/accountId/transactionsId?
+  /transactions/{transactionId}:
+    post:
+      summary: "Request single transaction details" 
+      description: "API for fetching additional details of a transaction."
+      tags: 
+        - "transactions"
+      security:
+      - BearerAuth: []
+      parameters:
+        - name: "transactionId"
+          in: "path"
+          description: "Transaction ID"
+          required: true
+          schema: 
+            type: integer
+        - name: "Authorization"
+          in: "header"
+          description: "Attach Bearer JWT Token"
+          required: true
+          schema: 
+            type: string
+      responses:
+        200: 
+          description: "Successfully retrieved transaction details."
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionType:
+                    type: string
+                  category:
+                    type: string
+                  Notes:
+                    type: string
+              example:
+                transactionType: "Electronic"
+                category: "Food"
+                Notes: ""
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+        
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    400:
+      description: "Bad Request. Syntax or fields are invalid."
+    401:
+      description: "Unauthorized Request. Authorization information is missing or invalid."
+    404: 
+      description: "Not Found."
+    500:
+      description: "Internal Server Error."
+      
