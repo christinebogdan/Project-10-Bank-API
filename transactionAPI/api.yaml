@@ -150,7 +150,7 @@ paths:
                 $ref: "#/components/schemas/Transaction"
               examples:
                 TransactionDetails:
-                  $ref: "#/components/examples/TransactionDetails"
+                  $ref: "#/components/examples/TransactionCreateNote"
         201:
           description: "Transaction note created successfully."
           content:
@@ -182,7 +182,7 @@ paths:
         - $ref: "#/components/parameters/Authorization"
       responses:
         200: 
-          description: "Transaction notes updated successfully"
+          description: "Transaction notes deleted successfully"
           content:
             application/json:
               schema: 
@@ -287,17 +287,17 @@ components:
         body: 
           transactionType: "Electronic"
           category: "Food"
-          notes: ""
+          notes: "Reimbursed by employer"
   parameters:
     AccountId:
-      name: "AccountId"
+      name: "accountId"
       in: "path"
       description: "Account ID"
       required: true
       schema: 
         type: integer
     TransactionId:
-      name: "TransactionId"
+      name: "transactionId"
       in: "path"
       description: "Transaction ID"
       required: true
