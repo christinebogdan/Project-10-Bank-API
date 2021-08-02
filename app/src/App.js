@@ -45,8 +45,6 @@ function App() {
 
 export default App;
 
-{
-  /* <Route exact path="/">
+/* <Route exact path="/">
   {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
 </Route> */
-}
