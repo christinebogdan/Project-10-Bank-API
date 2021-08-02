@@ -1,0 +1,316 @@
+#does POST need request body? https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
+openapi: "3.0.0"
+info:
+  description: "Contains all available API endpoints to:  
+  View transactions and additional transaction details
+  Add, change, or remove additional information."
+  version: "1.0.0"
+  title: "Bank Argent Transactions API documentation"
+servers:
+- url: "localhost:3001/api/v1"
+tags:
+- name: "transactions"
+
+
+paths:
+  /transactions/{accountId}:
+    post:
+      summary: "Request all transactions per account"
+      description: "API for fetching an account's transactions."
+      # what is an operationId good for?
+      tags:
+      - "transactions"
+      security:
+      - BearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/Authorization"
+      responses:
+        200: 
+          description: "Successfully retrieved account transactions"
+          content: 
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Transactions"
+              examples:
+                AccountTransactions:  
+                  $ref: "#/components/examples/AccountTransactions"
+                
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  # wouldn't it make more sense to have the additional details in the first request?
+  # or should it be /transactions/accountId/transactionsId?
+
+
+  /transactions/{transactionId}:
+    post:
+      summary: "Request single transaction details" 
+      description: "API for fetching additional details of a transaction."
+      tags: 
+        - "transactions"
+      security:
+      - BearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TransactionId"
+        - $ref: "#/components/parameters/Authorization"
+      responses:
+        200: 
+          description: "Successfully retrieved transaction details."
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+              examples:
+                TransactionDetails:
+                  $ref: "#/components/examples/TransactionDetails"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+
+
+  /transactions/{transactionId}/category:
+    put:
+      summary: "Update transaction category info" 
+      description: "API for updating the category info of a transaction."
+      tags: 
+        - "transactions"
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TransactionId"
+        - $ref: "#/components/parameters/Authorization"
+      requestBody: 
+        description: "Update transaction category"
+        required: true
+        content: 
+          application/json:
+            schema: 
+              type: object
+              properties:
+                category: 
+                  type: string
+      responses:
+        200: 
+          description: "Transaction category updated successfully"
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+              examples:
+                TransactionDetails:
+                  $ref: "#/components/examples/TransactionDetails"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"  
+
+
+  /transactions/{transactionId}/notes:
+    put:
+      summary: "Create or update transaction notes" 
+      description: "API for creating or updating notes of a transaction"   
+      tags:
+        - "transactions"  
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TransactionId"
+        - $ref: "#/components/parameters/Authorization"
+      requestBody:
+        description: "Create or update transaction notes"
+        required: true
+        content: 
+          application/json:
+            schema: 
+              type: object
+              properties:
+                notes:
+                  type: string
+      responses:
+        200: 
+          description: "Transaction notes updated successfully"
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Transaction"
+              examples:
+                TransactionDetails:
+                  $ref: "#/components/examples/TransactionCreateNote"
+        201:
+          description: "Transaction note created successfully."
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Transaction"
+              examples:
+                TransactionDetails:
+                  $ref: "#/components/examples/TransactionDetails"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500" 
+
+# do I need to send ID of the note that needs to be deleted? 
+    delete:
+      summary: "Delete transaction notes"
+      description: "API for deleting notes of a transaction"
+      tags:
+        - "transactions"
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TransactionId"
+        - $ref: "#/components/parameters/Authorization"
+      responses:
+        200: 
+          description: "Transaction notes deleted successfully"
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Transaction"
+              examples:
+                TransactionDetails:
+                  $ref: "#/components/examples/TransactionDetails"
+        202: 
+          description: "Request to delete transaction note has been accepted."
+        400:
+          description: "Bad Request. Syntax or fields are invalid."
+        401:
+          description: "Unauthorized Request. Authorization information is missing or invalid."
+        404: 
+          description: "Not Found."
+        500:
+          description: "Internal Server Error."
+
+      
+        
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    400:
+      description: "Bad Request. Syntax or fields are invalid."
+    401:
+      description: "Unauthorized Request. Authorization information is missing or invalid."
+    404: 
+      description: "Not Found."
+    500:
+      description: "Internal Server Error."
+  schemas:
+    Transactions:
+      type: object
+      properties:
+        status:
+          type: integer
+        message: 
+          type: string
+        body:
+          type: array
+          items: 
+            type: object
+            properties: 
+              accountId:
+                type: string
+              transactionId:
+                type: integer
+              date:
+                type: string
+              description:
+                type: string
+              amount:
+                type: integer
+              balance:
+                type: integer
+    # rename schemata as seen in api-docs of profject
+    Transaction:
+      type: object
+      properties:
+        status:
+          type: integer
+        message: 
+          type: string
+        body:  
+          type: object
+          properties:
+            transactionType:
+              type: string
+            category:
+              type: string
+            Notes:
+              type: string
+  examples:
+    AccountTransactions:
+      value: 
+        status: 200
+        message: "Successfully retrieved account transactions"
+        body:
+        - accountId: "x8349"
+          transactionId: 83722253
+          date: "yyyy/mm/dd"
+          description: "Golden Sun Bakery"
+          amount: 5
+          balance: 2082.79
+    TransactionDetails:
+      value:
+        status: 200
+        message: "Successfully retrieved transaction details."
+        body: 
+          transactionType: "Electronic"
+          category: "Food"
+          notes: ""
+    TransactionCreateNote:
+      value:
+        status: 201
+        message: "Successfully created transaction notes."
+        body: 
+          transactionType: "Electronic"
+          category: "Food"
+          notes: "Reimbursed by employer"
+  parameters:
+    AccountId:
+      name: "accountId"
+      in: "path"
+      description: "Account ID"
+      required: true
+      schema: 
+        type: integer
+    TransactionId:
+      name: "transactionId"
+      in: "path"
+      description: "Transaction ID"
+      required: true
+      schema: 
+        type: integer
+    Authorization:
+      name: "Authorization"
+      in: "header"
+      description: "Attach Bearer JWT Token"
+      required: true
+      schema: 
+        type: string
+    
+ 
+
+      
