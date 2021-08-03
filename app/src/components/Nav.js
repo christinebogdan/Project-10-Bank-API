@@ -23,7 +23,7 @@ function Nav(props) {
       <>
         <div>
           <FontAwesomeIcon icon="user-circle" />
-          <Link to="/" className="main-nav-item">
+          <Link to="/profile" className="main-nav-item">
             {state.userInfo.firstName}
           </Link>
         </div>
@@ -68,15 +68,15 @@ function Nav(props) {
 
   return (
     <nav className="main-nav">
-      {/* why does click on logo log user out */}
-      <a className="main-nav-logo" href="./">
+      {/* why does click on logo log user out when using anchor tag*/}
+      <Link className="main-nav-logo" to="/">
         <img
           className="main-nav-logo-image"
           src={logo}
           alt="Argent Bank Logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
-      </a>
+      </Link>
       <div>
         {state.isAuthenticated
           ? isAuthenticated(firstName)
