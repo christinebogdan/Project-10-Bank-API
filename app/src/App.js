@@ -23,7 +23,7 @@ library.add(faUserCircle, faSignOutAlt);
 function App() {
   const state = useSelector((state) => state.authentication);
   return (
-    <Router history={customHistory}>
+    <Router history={customHistory} basename={process.env.PUBLIC_URL}>
       <header>
         <Nav />
       </header>
