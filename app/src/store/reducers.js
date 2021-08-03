@@ -47,7 +47,7 @@ function authentication(state = defaultLoggedIn, action) {
         userInfo: action.value.userInfo,
       };
     case actions.LOGIN_ERROR:
-      return { ...state, isAuthenticated: false, token: "" };
+      return { ...state, loggingIn: false };
     case actions.USER_LOGOUT:
       return { ...state, isAuthenticated: false, token: "", userInfo: {} };
     case actions.USER_EDITNAME:

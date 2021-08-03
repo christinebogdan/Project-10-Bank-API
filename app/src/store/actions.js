@@ -83,6 +83,8 @@ function auth(data) {
       dispatch(submit());
     } catch (e) {
       console.log(e);
+      dispatch(loginError());
+      console.log(_getState());
     }
   };
 }
@@ -94,9 +96,15 @@ function login(value) {
   };
 }
 
+function loginError() {
+  return {
+    type: actions.LOGIN_ERROR,
+  };
+}
+
+// why is console cleared when logging out but not when click on logo?
 function logout() {
-  // or sessionStorage.clear()
-  sessionStorage.removeItem("user");
+  console.log("logout", sessionStorage);
   return {
     type: actions.USER_LOGOUT,
   };
@@ -106,7 +114,7 @@ function logout() {
 function loggingOut() {
   return (dispatch, getState) => {
     sessionStorage.clear();
-    dispatch(logout);
+    dispatch(logout());
     console.log(getState());
   };
 }
