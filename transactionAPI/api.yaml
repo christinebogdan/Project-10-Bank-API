@@ -13,9 +13,9 @@ tags:
 
 
 paths:
-  /transactions/{accountId}:
+  /accounts/{accountId}/transactions:
     post:
-      summary: "Request all transactions per account"
+      summary: "Request all transactions per account for current month"
       description: "API for fetching an account's transactions."
       # what is an operationId good for?
       tags:
@@ -48,7 +48,7 @@ paths:
   # or should it be /transactions/accountId/transactionsId?
 
 
-  /transactions/{transactionId}:
+  /accounts/{accountId}/transactions/{transactionId}:
     post:
       summary: "Request single transaction details" 
       description: "API for fetching additional details of a transaction."
@@ -57,6 +57,7 @@ paths:
       security:
       - BearerAuth: []
       parameters:
+        - $ref: "#/components/parameters/AccountId"
         - $ref: "#/components/parameters/TransactionId"
         - $ref: "#/components/parameters/Authorization"
       responses:
@@ -79,7 +80,7 @@ paths:
           $ref: "#/components/responses/500"
 
 
-  /transactions/{transactionId}/category:
+  /accounts/{accountId}/transactions/{transactionId}/category:
     put:
       summary: "Update transaction category info" 
       description: "API for updating the category info of a transaction."
@@ -88,6 +89,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: "#/components/parameters/AccountId"
         - $ref: "#/components/parameters/TransactionId"
         - $ref: "#/components/parameters/Authorization"
       requestBody: 
@@ -120,7 +122,7 @@ paths:
           $ref: "#/components/responses/500"  
 
 
-  /transactions/{transactionId}/notes:
+  /accounts/{accountId}/transactions/{transactionId}/notes:
     put:
       summary: "Create or update transaction notes" 
       description: "API for creating or updating notes of a transaction"   
@@ -129,6 +131,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: "#/components/parameters/AccountId"
         - $ref: "#/components/parameters/TransactionId"
         - $ref: "#/components/parameters/Authorization"
       requestBody:
@@ -178,6 +181,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: "#/components/parameters/AccountId"
         - $ref: "#/components/parameters/TransactionId"
         - $ref: "#/components/parameters/Authorization"
       responses:
@@ -243,7 +247,7 @@ components:
                 type: integer
               balance:
                 type: integer
-    # rename schemata as seen in api-docs of profject
+    # rename schemata as seen in api docs of project
     Transaction:
       type: object
       properties:
