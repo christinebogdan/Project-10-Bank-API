@@ -27,7 +27,7 @@ function formInput(state = defaultForm, action) {
 
 const defaultLoggedIn = {
   loggingIn: false,
-  isAuthenticated: false,
+  isAuthenticated: !!sessionStorage.user,
   token: "",
   userInfo: {},
   editName: false,

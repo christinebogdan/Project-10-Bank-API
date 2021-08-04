@@ -68,9 +68,10 @@ function request(value) {
 }
 
 // _getState to show that it is not used?
+// can leave out getState
 
 function auth(data) {
-  return async (dispatch, _getState) => {
+  return async (dispatch, getState) => {
     try {
       dispatch(request(data.username));
       const token = await requests.getToken(data);
@@ -81,7 +82,7 @@ function auth(data) {
     } catch (e) {
       console.log(e);
       dispatch(loginError());
-      console.log(_getState());
+      console.log(getState());
     }
   };
 }

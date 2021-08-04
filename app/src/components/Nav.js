@@ -43,13 +43,20 @@ function Nav(props) {
           </Link> */}
 
           {/* shows errors in console on click */}
-          <a
+          {/* <a
             href="./"
             onClick={dispatch(actionCreators.loggingOut)}
             className="main-nav-item"
           >
             Sign Out
-          </a>
+          </a> */}
+          <Link
+            to="/"
+            className="main-nav-item"
+            onClick={() => dispatch(actionCreators.loggingOut())}
+          >
+            Sign Out
+          </Link>
         </div>
       </>
     );

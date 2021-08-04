@@ -66,6 +66,5 @@ async function updateName(data) {
   }
 
   const { body } = await response.json();
-  console.log();
   return body;
 }
