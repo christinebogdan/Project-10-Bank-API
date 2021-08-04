@@ -18,8 +18,6 @@ import { customHistory } from "./helper/history";
 //
 library.add(faUserCircle, faSignOutAlt);
 
-// make nav dynamic depending on login state
-// make greeting on profile page dynamic depending on user name
 function App() {
   const state = useSelector((state) => state.authentication);
   return (

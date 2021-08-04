@@ -67,9 +67,6 @@ function request(value) {
   };
 }
 
-// wie kann ich hier per destructuring userInfo: body die UserInfo rausholen?
-// dispatch(login({ token, userInfo: { profile: { body } } }));
-
 // _getState to show that it is not used?
 
 function auth(data) {
@@ -110,7 +107,6 @@ function logout() {
   };
 }
 
-// why does this not log the state in the console after dispatching logout?
 function loggingOut() {
   return (dispatch, getState) => {
     sessionStorage.clear();
