@@ -76,6 +76,8 @@ function auth(data) {
       dispatch(request(data.username));
       const token = await requests.getToken(data);
       const { body } = await requests.getProfile(token);
+      sessionStorage.setItem("firstName", body.firstName);
+      sessionStorage.setItem("lastName", body.lastName);
       dispatch(login({ token, userInfo: body }));
       customHistory.push("/profile");
       dispatch(submit());
@@ -102,7 +104,6 @@ function loginError() {
 
 // why is console cleared when logging out but not when click on logo?
 function logout() {
-  console.log("logout", sessionStorage);
   return {
     type: actions.USER_LOGOUT,
   };
@@ -112,7 +113,6 @@ function loggingOut() {
   return (dispatch, getState) => {
     sessionStorage.clear();
     dispatch(logout());
-    console.log(getState());
   };
 }
 

@@ -22,13 +22,15 @@ function User(props) {
       dispatch(actionCreators.editLastName(e.target.value));
     }
     // why does this log one character less than typed?
-    console.log(state);
+    // console.log(state);
   };
 
   const handleSave = (e) => {
     e.preventDefault();
     const data = state.editNameInput;
     dispatch(actionCreators.updateName(data));
+    sessionStorage.setItem("firstName", data.firstName);
+    sessionStorage.setItem("lastName", data.lastName);
   };
 
   const handleCancel = (e) => {

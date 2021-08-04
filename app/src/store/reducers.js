@@ -29,7 +29,10 @@ const defaultLoggedIn = {
   loggingIn: false,
   isAuthenticated: !!sessionStorage.user,
   token: "",
-  userInfo: {},
+  userInfo: {
+    firstName: sessionStorage.firstName,
+    lastName: sessionStorage.lastName,
+  },
   editName: false,
   editNameInput: { firstName: "", lastName: "" },
 };
