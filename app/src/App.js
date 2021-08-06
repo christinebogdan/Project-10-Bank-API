@@ -6,15 +6,22 @@ import Footer from "./components/Footer";
 import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Redirect, Router, Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+// what is the difference between createBrowserHistory and useRouterHistory
+// https://medium.com/@ivantsov/using-react-router-and-history-38c021270829
+
+import { customHistory } from "./helper/history";
+
+//
 library.add(faUserCircle, faSignOutAlt);
 
-// make nav dynamic depending on login state
-// make greeting on profile page dynamic depending on user name
 function App() {
+  const state = useSelector((state) => state.authentication);
   return (
-    <Router>
+    <Router history={customHistory} basename={process.env.PUBLIC_URL}>
       <header>
         <Nav />
       </header>
@@ -26,7 +33,7 @@ function App() {
           <Login />
         </Route>
         <Route path="/profile">
-          <User />
+          {state.isAuthenticated ? <User /> : <Redirect to="/" />}
         </Route>
       </Switch>
       <Footer />
@@ -35,3 +42,7 @@ function App() {
 }
 
 export default App;
+
+/* <Route exact path="/">
+  {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
+</Route> */

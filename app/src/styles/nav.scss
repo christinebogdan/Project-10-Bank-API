@@ -6,9 +6,15 @@
 }
 
 .main-nav a {
+  text-decoration: none;
   font-weight: bold;
   color: #2c3e50;
   margin-left: 5px;
+}
+
+.main-nav div {
+  display: flex;
+  align-items: center;
 }
 
 .main-nav a.router-link-exact-active {
@@ -32,4 +38,18 @@
 .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+}
+
+@media (max-width: 500px) {
+  // .main-nav {
+  //   flex-wrap: wrap;
+  //   justify-content: space-around;
+  // }
+  // .main-nav-logo {
+  //   flex-basis: 100%;
+  //   justify-content: space-around;
+  // }
+  .main-nav-logo {
+    width: 100px;
+  }
 }

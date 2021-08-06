@@ -1,20 +1,15 @@
 import "../styles/login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  username,
-  password,
-  rememberme,
-  logout,
-  login,
-} from "../store/form/actions";
-import fetchRequest from "../helper/fetchRequest";
+import { actionCreators } from "../store/actions";
 
 function Login(props) {
-  const form = useSelector((state) => state.form);
-  const loginStatus = useSelector((state) => state.loginStatus);
-  console.log(loginStatus);
+  const form = useSelector((state) => state.formInput);
   const dispatch = useDispatch();
+
+  // dispatch(actionCreators.loggingOut);
+  // why does this render every time I type in the form input field?
+  // console.log("hello");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,37 +17,17 @@ function Login(props) {
       email: form.username,
       password: form.password,
     };
-
-    // ??? why is line "done" + loginStatus printed before all other lines in the then-chain?
-    fetchRequest("http://localhost:3001/api/v1/user/login", data, "POST")
-      .then((response) => {
-        return response;
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(login(response.body.token));
-          const headers = {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${response.body.token}`,
-          };
-          fetchRequest(
-            "http://localhost:3001/api/v1/user/profile",
-            undefined,
-            "POST",
-            headers
-          ).then((response) => console.log(response));
-        }
-      })
-      .then(console.log("done"));
+    dispatch(actionCreators.auth(data));
+    // why did the dispatch of submit action not work here?
   };
 
   const handleChange = (e) => {
     if (e.target.id === "username") {
-      dispatch(username(e.target.value));
+      dispatch(actionCreators.username(e.target.value));
     } else if (e.target.id === "password") {
-      dispatch(password(e.target.value));
+      dispatch(actionCreators.password(e.target.value));
     } else if (e.target.id === "remember-me") {
-      dispatch(rememberme(e.target.checked ? true : false));
+      dispatch(actionCreators.rememberme(e.target.checked ? true : false));
     }
   };
 

@@ -22,9 +22,10 @@ const accountBalanceData = [
 function Account() {
   return (
     <>
-      {accountBalanceData.map((entry) => {
+      {accountBalanceData.map((entry, index) => {
         return (
           <AccountEntry
+            key={index}
             title={entry.title}
             amount={entry.amount}
             description={entry.description}
