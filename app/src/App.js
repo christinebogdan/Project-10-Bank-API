@@ -7,7 +7,7 @@ import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Redirect, Router, Switch, Route } from "react-router-dom";
+import { Redirect, BrowserRouter, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // what is the difference between createBrowserHistory and useRouterHistory
@@ -21,7 +21,7 @@ library.add(faUserCircle, faSignOutAlt);
 function App() {
   const state = useSelector((state) => state.authentication);
   return (
-    <Router history={customHistory} basename={process.env.PUBLIC_URL}>
+    <BrowserRouter history={customHistory} basename={process.env.PUBLIC_URL}>
       <header>
         <Nav />
       </header>
@@ -37,7 +37,7 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-    </Router>
+    </BrowserRouter>
   );
 }
 
