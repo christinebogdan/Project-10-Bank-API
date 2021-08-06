@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/p10_BankAPI/static/css/main.d67810ca.chunk.css",
-    "main.js": "/p10_BankAPI/static/js/main.80e70018.chunk.js",
-    "main.js.map": "/p10_BankAPI/static/js/main.80e70018.chunk.js.map",
+    "main.js": "/p10_BankAPI/static/js/main.87761f24.chunk.js",
+    "main.js.map": "/p10_BankAPI/static/js/main.87761f24.chunk.js.map",
     "runtime-main.js": "/p10_BankAPI/static/js/runtime-main.15bd3985.js",
     "runtime-main.js.map": "/p10_BankAPI/static/js/runtime-main.15bd3985.js.map",
-    "static/js/2.33d3a393.chunk.js": "/p10_BankAPI/static/js/2.33d3a393.chunk.js",
-    "static/js/2.33d3a393.chunk.js.map": "/p10_BankAPI/static/js/2.33d3a393.chunk.js.map",
+    "static/js/2.c0c6cac4.chunk.js": "/p10_BankAPI/static/js/2.c0c6cac4.chunk.js",
+    "static/js/2.c0c6cac4.chunk.js.map": "/p10_BankAPI/static/js/2.c0c6cac4.chunk.js.map",
     "static/js/3.d6161407.chunk.js": "/p10_BankAPI/static/js/3.d6161407.chunk.js",
     "static/js/3.d6161407.chunk.js.map": "/p10_BankAPI/static/js/3.d6161407.chunk.js.map",
     "index.html": "/p10_BankAPI/index.html",
     "static/css/main.d67810ca.chunk.css.map": "/p10_BankAPI/static/css/main.d67810ca.chunk.css.map",
-    "static/js/2.33d3a393.chunk.js.LICENSE.txt": "/p10_BankAPI/static/js/2.33d3a393.chunk.js.LICENSE.txt",
+    "static/js/2.c0c6cac4.chunk.js.LICENSE.txt": "/p10_BankAPI/static/js/2.c0c6cac4.chunk.js.LICENSE.txt",
     "static/media/argentBankLogo.e031a16c.png": "/p10_BankAPI/static/media/argentBankLogo.e031a16c.png",
     "static/media/bank-tree.4d59987c.jpeg": "/p10_BankAPI/static/media/bank-tree.4d59987c.jpeg",
     "static/media/icon-chat.e238539d.png": "/p10_BankAPI/static/media/icon-chat.e238539d.png",
@@ -20,8 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.15bd3985.js",
-    "static/js/2.33d3a393.chunk.js",
+    "static/js/2.c0c6cac4.chunk.js",
     "static/css/main.d67810ca.chunk.css",
-    "static/js/main.80e70018.chunk.js"
+    "static/js/main.87761f24.chunk.js"
   ]
 }
