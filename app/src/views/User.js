@@ -3,13 +3,9 @@ import Account from "../components/Account";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../store/actions";
 
-// do I need to make sure that user cannot enter anything else in URL?
-// do I need to use their id in the URL?
 function User(props) {
   const state = useSelector((state) => state.authentication);
   const dispatch = useDispatch();
-
-  // refreshing page logs user out and leads to homepage
 
   const editName = () => {
     dispatch(actionCreators.editName());
@@ -21,8 +17,6 @@ function User(props) {
     } else if (e.target.id === "lastName") {
       dispatch(actionCreators.editLastName(e.target.value));
     }
-    // why does this log one character less than typed?
-    // console.log(state);
   };
 
   const handleSave = (e) => {

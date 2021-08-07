@@ -1,7 +1,6 @@
 import { requests } from "../helper/fetchRequest";
 import { customHistory } from "../helper/history";
 
-// do I need to use ERROR for LOGIN and USER EDITNAME?
 export const actions = {
   FORM_USERNAME: "form/username",
   FORM_PASSWORD: "form/password",
@@ -21,11 +20,9 @@ export const actionCreators = {
   username,
   password,
   rememberme,
-  // submit,
   request,
   auth,
   login,
-  // logout,
   loggingOut,
   editName,
   editFirstName,
@@ -67,9 +64,6 @@ function request(value) {
   };
 }
 
-// _getState to show that it is not used?
-// can leave out getState
-
 function auth(data) {
   return async (dispatch, getState) => {
     try {
@@ -102,7 +96,6 @@ function loginError() {
   };
 }
 
-// why is console cleared when logging out but not when click on logo?
 function logout() {
   return {
     type: actions.USER_LOGOUT,

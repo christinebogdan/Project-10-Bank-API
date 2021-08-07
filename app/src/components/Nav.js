@@ -10,14 +10,6 @@ function Nav(props) {
   const state = useSelector((state) => state.authentication);
   const firstName = state.userInfo.firstName;
 
-  // why does this not work in LINK
-  // const loggingOut = (e) => {
-  //   console.log("Hello");
-  //   dispatch(actionCreators.loggingOut);
-  //   console.log(state);
-  // };
-
-  // why does it not work to link sign out to /login and have login dispatch loggingout ?
   const isAuthenticated = (firstName) => {
     return (
       <>
@@ -29,27 +21,6 @@ function Nav(props) {
         </div>
         <div>
           <FontAwesomeIcon icon="sign-out-alt" />
-          {/* <Link to="/login" className="main-nav-item">
-            Sign Out
-          </Link> */}
-          {/* <Link
-            to={(location) => {
-              dispatch(actionCreators.loggingOut);
-              return { ...location, pathname: "/" };
-            }}
-            className="main-nav-item"
-          >
-            Sign Out
-          </Link> */}
-
-          {/* shows errors in console on click */}
-          {/* <a
-            href="./"
-            onClick={dispatch(actionCreators.loggingOut)}
-            className="main-nav-item"
-          >
-            Sign Out
-          </a> */}
           <Link
             to="/"
             className="main-nav-item"
@@ -75,7 +46,6 @@ function Nav(props) {
 
   return (
     <nav className="main-nav">
-      {/* why does click on logo log user out when using anchor tag*/}
       <Link className="main-nav-logo" to="/">
         <img
           className="main-nav-logo-image"

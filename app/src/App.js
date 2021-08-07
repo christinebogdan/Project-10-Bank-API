@@ -6,12 +6,8 @@ import Footer from "./components/Footer";
 import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect, BrowserRouter, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-// what is the difference between createBrowserHistory and useRouterHistory
-// https://medium.com/@ivantsov/using-react-router-and-history-38c021270829
 
 import { customHistory } from "./helper/history";
 
@@ -42,7 +38,3 @@ function App() {
 }
 
 export default App;
-
-/* <Route exact path="/">
-  {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
-</Route> */

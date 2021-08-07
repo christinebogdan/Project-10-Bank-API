@@ -4,7 +4,6 @@ export const requests = {
   updateName,
 };
 
-// why can I not do fetch().json() ?
 async function getToken(data) {
   const requestOptions = {
     method: "POST",
