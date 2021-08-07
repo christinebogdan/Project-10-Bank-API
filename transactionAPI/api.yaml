@@ -1,4 +1,3 @@
-#does POST need request body? https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
 openapi: "3.0.0"
 info:
   description: "Contains all available API endpoints to:  
@@ -17,7 +16,6 @@ paths:
     get:
       summary: "Request all transactions per account for current month"
       description: "API for fetching an account's transactions."
-      # what is an operationId good for?
       tags:
       - "transactions"
       security:
@@ -45,9 +43,6 @@ paths:
           $ref: "#/components/responses/404"
         500:
           $ref: "#/components/responses/500"
-  # wouldn't it make more sense to have the additional details in the first request?
-  # or should it be /transactions/accountId/transactionsId?
-
 
   /accounts/{accountId}/transactions/{transactionId}:
     get:
@@ -122,58 +117,6 @@ paths:
         500:
           $ref: "#/components/responses/500"  
 
-
-  # /accounts/{accountId}/transactions/{transactionId}/notes:
-  #   put:
-  #     summary: "Create or update transaction notes" 
-  #     description: "API for creating or updating notes of a transaction"   
-  #     tags:
-  #       - "transactions"  
-  #     security:
-  #       - BearerAuth: []
-  #     parameters:
-  #       - $ref: "#/components/parameters/AccountId"
-  #       - $ref: "#/components/parameters/TransactionId"
-  #       - $ref: "#/components/parameters/Authorization"
-  #     requestBody:
-  #       description: "Create or update transaction notes"
-  #       required: true
-  #       content: 
-  #         application/json:
-  #           schema: 
-  #             type: object
-  #             properties:
-  #               notes:
-  #                 type: string
-  #     responses:
-  #       200: 
-  #         description: "Transaction notes updated successfully"
-  #         content:
-  #           application/json:
-  #             schema: 
-  #               $ref: "#/components/schemas/Transaction"
-  #             examples:
-  #               TransactionDetails:
-  #                 $ref: "#/components/examples/TransactionCreateNote"
-  #       201:
-  #         description: "Transaction note created successfully."
-  #         content:
-  #           application/json:
-  #             schema: 
-  #               $ref: "#/components/schemas/Transaction"
-  #             examples:
-  #               TransactionDetails:
-  #                 $ref: "#/components/examples/TransactionDetails"
-  #       400:
-  #         $ref: "#/components/responses/400"
-  #       401:
-  #         $ref: "#/components/responses/401"
-  #       404:
-  #         $ref: "#/components/responses/404"
-  #       500:
-  #         $ref: "#/components/responses/500" 
-
-# do I need to send ID of the note that needs to be deleted? 
     delete:
       summary: "Delete single transaction"
       description: "API for deleting single transaction"
@@ -186,15 +129,6 @@ paths:
         - $ref: "#/components/parameters/TransactionId"
         - $ref: "#/components/parameters/Authorization"
       responses:
-        # 200: 
-        #   description: "Transaction deleted successfully"
-        #   content:
-        #     application/json:
-        #       schema: 
-        #         $ref: "#/components/schemas/Transaction"
-        #       examples:
-        #         TransactionDetails:
-        #           $ref: "#/components/examples/TransactionDetails"
         202: 
           description: "Request to delete transaction has been accepted."
         204:
@@ -249,7 +183,6 @@ components:
                 type: integer
               balance:
                 type: integer
-    # rename schemata as seen in api docs of project
     Transaction:
       type: object
       properties:
