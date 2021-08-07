@@ -6,10 +6,10 @@ import Footer from "./components/Footer";
 import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { Redirect, BrowserRouter, Switch, Route } from "react-router-dom";
+import { Redirect, Router, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { customHistory } from "./helper/history";
+import { customHistory, BASENAME } from "./helper/history";
 
 //
 library.add(faUserCircle, faSignOutAlt);
@@ -17,23 +17,23 @@ library.add(faUserCircle, faSignOutAlt);
 function App() {
   const state = useSelector((state) => state.authentication);
   return (
-    <BrowserRouter history={customHistory} basename={process.env.PUBLIC_URL}>
+    <Router history={customHistory}>
       <header>
         <Nav />
       </header>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={`/${BASENAME}/`}>
           <Homepage />
         </Route>
-        <Route path="/login">
+        <Route path={`/${BASENAME}/login`}>
           <Login />
         </Route>
-        <Route path="/profile">
-          {state.isAuthenticated ? <User /> : <Redirect to="/" />}
+        <Route path={`/${BASENAME}/profile`}>
+          {state.isAuthenticated ? <User /> : <Redirect to={`/${BASENAME}/`} />}
         </Route>
       </Switch>
       <Footer />
-    </BrowserRouter>
+    </Router>
   );
 }
 

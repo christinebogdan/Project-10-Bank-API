@@ -1,5 +1,5 @@
 import { requests } from "../helper/fetchRequest";
-import { customHistory } from "../helper/history";
+import { customHistory, BASENAME } from "../helper/history";
 
 export const actions = {
   FORM_USERNAME: "form/username",
@@ -73,7 +73,7 @@ function auth(data) {
       sessionStorage.setItem("firstName", body.firstName);
       sessionStorage.setItem("lastName", body.lastName);
       dispatch(login({ token, userInfo: body }));
-      customHistory.push("/profile");
+      customHistory.push(`/${BASENAME}/profile`);
       dispatch(submit());
     } catch (e) {
       console.log(e);

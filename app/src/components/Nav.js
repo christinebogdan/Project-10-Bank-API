@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../store/actions";
+import { BASENAME } from "../helper/history";
 
 function Nav(props) {
   const dispatch = useDispatch();
@@ -15,14 +16,14 @@ function Nav(props) {
       <>
         <div>
           <FontAwesomeIcon icon="user-circle" />
-          <Link to="/profile" className="main-nav-item">
+          <Link to={`/${BASENAME}/profile`} className="main-nav-item">
             {state.userInfo.firstName}
           </Link>
         </div>
         <div>
           <FontAwesomeIcon icon="sign-out-alt" />
           <Link
-            to="/"
+            to={`/${BASENAME}/`}
             className="main-nav-item"
             onClick={() => dispatch(actionCreators.loggingOut())}
           >
@@ -37,7 +38,7 @@ function Nav(props) {
     return (
       <div>
         <FontAwesomeIcon icon="user-circle" />
-        <Link to="/login" className="main-nav-item">
+        <Link to={`/${BASENAME}/login`} className="main-nav-item">
           Sign In
         </Link>
       </div>
@@ -46,7 +47,7 @@ function Nav(props) {
 
   return (
     <nav className="main-nav">
-      <Link className="main-nav-logo" to="/">
+      <Link className="main-nav-logo" to={`/${BASENAME}/`}>
         <img
           className="main-nav-logo-image"
           src={logo}
